@@ -1,4 +1,4 @@
-# 📡 MT SureBet → Telegram Notifier
+# 📡 Automation Bot → Telegram Notifier
 
 Sistema desenvolvido para enviar automaticamente notificações de um site para o Telegram utilizando Flask como backend.
 
@@ -29,7 +29,7 @@ O projeto recebe eventos do site e encaminha as informações diretamente para u
 ## 📁 Estrutura do Projeto
 
 ```
-mtsurebet-automation-bot/
+automation-bot/
 ├── app.py
 ├── config.py
 ├── requirements.txt
@@ -54,8 +54,8 @@ mtsurebet-automation-bot/
 ### 1️⃣ Clonar o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/mtsurebet-telegram-bot.git
-cd mtsurebet-telegram-bot
+git cloneclone https://github.com/KarlosSanchez18/automation-bot.git
+cd automation-bot
 ```
 
 ---
