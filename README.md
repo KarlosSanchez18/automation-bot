@@ -1,136 +1,108 @@
-# 📡 Automation Bot → Telegram Notifier
+# Automation Bot — Web → Telegram Notifications
 
-Sistema desenvolvido para enviar automaticamente notificações de um site para o Telegram utilizando Flask como backend.
+A small integration service that receives events from a web application and forwards structured notifications to Telegram through a bot.
 
-O projeto recebe eventos do site e encaminha as informações diretamente para um canal ou grupo do Telegram através de um bot.
+This repository demonstrates a simple but common integration pattern: **HTTP event → backend validation/processing → external messaging API**.
 
----
+## What it does
 
-## 🚀 Funcionalidades
+- Receives events through a Flask backend.
+- Separates API routes from Telegram-specific logic.
+- Sends messages to a configured Telegram chat/channel.
+- Loads credentials and configuration from environment variables.
+- Keeps sensitive values outside version control.
 
-- Integração entre site e Telegram
-- Envio automático de mensagens
-- Backend simples e eficiente
-- Configuração via variáveis de ambiente
-- Estrutura limpa e objetiva
+## Architecture
 
----
+```text
+website / external service
+        |
+        | HTTP request
+        v
+     Flask API
+        |
+        | processed event
+        v
+ Telegram Bot API
+        |
+        v
+ channel / group
+```
 
-## 🛠️ Tecnologias Utilizadas
+## Project structure
+
+```text
+automation-bot/
+├── app.py
+├── config.py
+├── requirements.txt
+├── .env.example
+├── bot/
+│   ├── __init__.py
+│   └── telegram_bot.py
+└── routes/
+    ├── __init__.py
+    └── api.py
+```
+
+## Stack
 
 - Python 3
 - Flask
 - Telegram Bot API
 - Requests
-- Python Dotenv
+- python-dotenv
 
----
-
-## 📁 Estrutura do Projeto
-
-```
-automation-bot/
-├── app.py
-├── config.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-├── .env.example
-│
-├── bot/
-│   ├── __init__.py
-│   └── telegram_bot.py
-│
-├── routes/
-│   ├── __init__.py
-│   └── api.py
-
-```
-
----
-
-## ⚙️ Configuração do Ambiente
-
-### 1️⃣ Clonar o repositório
+## Local setup
 
 ```bash
-git cloneclone https://github.com/KarlosSanchez18/automation-bot.git
+git clone https://github.com/KarlosSanchez18/automation-bot.git
 cd automation-bot
+
+python -m venv .venv
 ```
 
----
-
-### 2️⃣ Criar ambiente virtual (opcional)
+Activate the virtual environment:
 
 ```bash
-python -m venv venv
-source venv/bin/activate   # Linux / macOS
-venv\Scripts\activate      # Windows
+# Linux / macOS
+source .venv/bin/activate
+
+# Windows
+.venv\Scripts\activate
 ```
 
----
-
-### 3️⃣ Instalar dependências
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-### 4️⃣ Configurar variáveis de ambiente
-
-Crie um arquivo `.env` baseado no `.env.example`:
+Create `.env` from the example file:
 
 ```env
-TELEGRAM_BOT_TOKEN=SEU_TOKEN_AQUI
-TELEGRAM_CHAT_ID=SEU_CHAT_ID_AQUI
+TELEGRAM_BOT_TOKEN=your_token_here
+TELEGRAM_CHAT_ID=your_chat_id_here
 ```
 
----
-
-## ▶️ Executando o Projeto
+Run the service:
 
 ```bash
 python app.py
 ```
 
-O servidor Flask ficará ativo e pronto para receber requisições do site.
+## Security notes
 
----
+- Tokens and chat identifiers should stay in environment variables.
+- `.env` must not be committed.
+- In a production deployment, incoming requests should be authenticated/validated according to the source system.
 
-## 🔔 Funcionamento
+## Why this project exists
 
-1. O site envia uma requisição HTTP para o backend Flask
-2. O Flask processa os dados recebidos
-3. A mensagem é enviada automaticamente para o Telegram
+This is a compact public example of the integration work I do in larger systems: receiving events from one service, applying application logic, and handing the result to another platform through an API.
 
----
+## Author
 
-## 🔐 Segurança
+**Karlos Sanchez** — Full-Stack Developer focused on automation, integrations and business systems.
 
-- Dados sensíveis não são versionados
-- O arquivo `.env` está protegido no `.gitignore`
-- Apenas o `.env.example` é versionado
-
----
-
-## 📌 Observações Importantes
-
-- O bot precisa estar no canal ou grupo
-- Em canais, o bot deve ser administrador
-- O Chat ID deve ser configurado corretamente
-
----
-
-## 👤 Autor
-
-**Karlos Sanchez**  
-Estudante de Ciência da Computação  
-Foco em automação, integração de sistemas e ciência de dados
-
----
-
-## 📄 Licença
-
-Projeto desenvolvido para fins educacionais e portfólio.
+[LinkedIn](https://www.linkedin.com/in/karlos-sanchez/) · [GitHub profile](https://github.com/KarlosSanchez18)
